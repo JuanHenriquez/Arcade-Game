@@ -9,6 +9,7 @@ var Game = function(){
     this.character   = 'char-boy';
     this.player      = new Player();
     this.allEnemies  = [];
+    this.score       = new Score();
 
 };
 
@@ -32,20 +33,34 @@ Game.prototype.toggleDifficulty = function( level ){
     this.difficulty = level;
 };
 
+// Cambia la imagen del jugador.
 Game.prototype.changeCharacter = function( character ){
     this.player.sprite = 'images/' + character + '.png';
 }
 
+
+// Carga los enemigos y los coloca dentro del array allEnemies.
 Game.prototype.loadEnemies = function(){
 
+    // Por buenas practicas, se creo la variable afuera del loop para que no se
+    // cree una y otra vez.
     var enemy;
 
-    for(var i = 0, x = this.difficulty * 3; i < x; i++){
+    // Recorremos cada fila del mapa donde apareceran las garrapatas.
+    for(var i = 0; i < 4; i++){
 
-        enemy = new Enemy( this.difficulty * 150, Math.floor((Math.random() * 4)) + 1);
+        // Por medio de un numero aleatorio se vera cuantos enemigos habra por fila
+        // para despues colocarlos en el array allEnemies.
+        for(var j = 0, x = Math.floor((Math.random() * 2)) + 1; j < x; j++){
 
-        this.allEnemies.push(enemy);
+            var enemy,
+                speed = this.difficulty * Math.floor(( Math.random() * (200 - 100) + 100));
+
+            enemy = new Enemy(speed, i);
+            this.allEnemies.push(enemy);
+        }
     }
+
 
 }
 
@@ -63,68 +78,86 @@ Game.prototype.reset = function(){
 };
 
 
-// Enemies our player must avoid
+/**
+* @constructor Enemies our player must avoid
+* @param {number} speed - The speed of the enemy.
+* @param {number} row - The row where is located.
+*/
 var Enemy = function(speed, row) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
+
     this.speed = speed;
-    this.x = -100 - Math.floor( (Math.random() * 500) + 1);
-    this.y =  -23  + row * 83;
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+    this.x = -200;
+    this.y =  60  + row * 83;
     this.sprite = 'images/enemy-bug.png';
+
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
 
+/**
+* @description Update the enemy's position.
+* @param {number} dt - A time delta between ticks.
+*/
+Enemy.prototype.update = function(dt) {
     this.move(dt);
 };
 
+
+/**
+* @description Move the enemy's.
+* @param {number} dt - A time delta between ticks.
+*/
 Enemy.prototype.move = function(dt) {
-    console.log(this.x);
+
+    // Move the enemy.
     if (this.x <= 504) {
-        this.x += 1;
+        this.x += dt * this.speed;
     }
 
+    // If the enemy came at the end of the row,
+    // move to the other side with random position.
     if (this.x > 504) {
         this.x = -200 - Math.floor((Math.random() * 250));
     }
 }
 
-// Draw the enemy on the screen, required method for game
+/**
+* @description Draw the enemy on the screen.
+*/
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 
+/**
+* @constructor Player of the game.
+*/
 var Player = function() {
 
     this.locationX = 202;
     this.locationY = 392;
     this.sprite    = 'images/char-boy.png';
-};
-
-Player.prototype.update = function () {
+    this.lifes     = 1;
 
 };
 
+/**
+* @description Draw the player on the screen.
+*/
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.locationX, this.locationY);
 };
 
+/**
+* @description Handle key event when a key is pressed and move the player.
+* @param {string} dt - The name of the key pressed.
+*/
 Player.prototype.handleInput = function (key) {
     switch (key) {
         case 'up':
             if (this.locationY >= 143) {
                 this.locationY -= 83;
+            }else if(this.locationY <= 60){
+                this.reset();
             }
             break;
         case 'down':
@@ -148,14 +181,49 @@ Player.prototype.handleInput = function (key) {
     }
 };
 
-Player.prototype.reset = function (posY) {
-    if (posY == 60) {
-        this.locationY = 392;
+/**
+* @description Reset the player position to initial state.
+*/
+Player.prototype.reset = function () {
+    this.locationY = 392;
+    this.locationX = 202;
+};
+
+var Item = function(name, x, y){
+
+    this.x      = x;
+    this.y      = y;
+    this.sprite = 'images/' + name + '.png';
+
+};
+
+Item.prototype.collect = function(){
+
+};
+
+Item.prototype.drop = function(){
+
+};
+
+Item.prototype.render = function(){
+
+};
+
+var Score = function(){
+    this.points = 0;
+};
+
+Score.prototype.sum = function( points ){
+    this.points += points;
+};
+
+Score.prototype.sub = function( points ){
+    if(this.points > 0){
+        this.points -= points;
     }
 };
 
-
-var game = new Game();
+game = new Game();
 
 
 // This listens for key presses and sends the keys to your
