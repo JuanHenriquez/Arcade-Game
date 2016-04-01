@@ -68,7 +68,7 @@ var Enemy = function(speed, row) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.speed = speed;
-    this.x = 0;
+    this.x = -100 - Math.floor( (Math.random() * 500) + 1);
     this.y =  -23  + row * 83;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
