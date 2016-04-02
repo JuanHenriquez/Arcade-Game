@@ -133,8 +133,8 @@ Enemy.prototype.render = function() {
 */
 var Player = function() {
 
-    this.locationX = 202;
-    this.locationY = 392;
+    this.locationX = 505;
+    this.locationY = 475;
     this.sprite    = 'images/char-boy.png';
     this.lifes     = 1;
 
@@ -154,24 +154,24 @@ Player.prototype.render = function () {
 Player.prototype.handleInput = function (key) {
     switch (key) {
         case 'up':
-            if (this.locationY >= 143) {
+            if (this.locationY > 60) {
                 this.locationY -= 83;
             }else if(this.locationY <= 60){
                 this.reset();
             }
             break;
         case 'down':
-            if (this.locationY <= 309) {
+            if (this.locationY < 460) {
                 this.locationY += 83;
             }
             break;
         case 'left':
-            if (this.locationX >= 101) {
+            if (this.locationX > 0) {
                 this.locationX -= 101;
             }
             break;
         case 'right':
-            if (this.locationX <= 303) {
+            if (this.locationX < 909) {
                 this.locationX  += 101;
             }
             break;
@@ -179,14 +179,16 @@ Player.prototype.handleInput = function (key) {
             this.locationY = this.locationY;
             this.locationX = this.locationX;
     }
+    console.log("Posicion en x: " + this.locationX);
+    console.log("Posicion en y: " + this.locationY);
 };
 
 /**
 * @description Reset the player position to initial state.
 */
 Player.prototype.reset = function () {
-    this.locationY = 392;
-    this.locationX = 202;
+    this.locationX = 505;
+    this.locationY = 475;
 };
 
 var Item = function(name, x, y){
