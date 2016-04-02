@@ -4,7 +4,24 @@
         $('select').material_select();
 
 
-        // Handle events.
+        // UI & Visual.
+
+        var menuIcon          = $('#menu-icon'),
+            mainMenuContainer = $('#main-menu'),
+            canvasContainer   = $('#canvas-container');
+
+        menuIcon.click(function(){
+            if( mainMenuContainer.css('right') ==  "-690px"){
+                mainMenuContainer.css('right', '0px');
+                canvasContainer.css('left', '-690px');
+            }else {
+                mainMenuContainer.css('right', '-690px');
+                 canvasContainer.css('left', '0px');
+            }
+        });
+
+
+        // Handle Game events.
 
         var gameOptionsContainer   = $('.game-option-group'),
             gameDifficultyElement  = $('#difficulty'),
