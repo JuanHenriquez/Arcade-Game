@@ -2,7 +2,7 @@
 var Game = function(){
 
     this.isPause     = false;
-    this.playMusic   = false;
+    this.audio       = new Audio('./music/arcade-music.wav');
     this.withLife    = false;
     this.withTime    = false;
     this.difficulty  = 1;
@@ -18,7 +18,15 @@ Game.prototype.togglePause = function(){
 };
 
 Game.prototype.toggleMusic = function(){
-    this.playMusic = !this.playMusic;
+
+    if(this.audio.paused){
+        this.audio.loop = true;
+        this.audio.play();
+        this.audio.volume = 0.4;
+    }else {
+        this.audio.pause();
+    }
+
 };
 
 Game.prototype.toggleLifeOption = function(){
@@ -44,21 +52,24 @@ Game.prototype.loadEnemies = function(){
 
     // Por buenas practicas, se creo la variable afuera del loop para que no se
     // cree una y otra vez.
-    var enemy;
+    var enemy, distance = 0;
 
     // Recorremos cada fila del mapa donde apareceran las garrapatas.
-    for(var i = 0; i < 4; i++){
+    for(var i = 0; i < 5; i++){
 
         // Por medio de un numero aleatorio se vera cuantos enemigos habra por fila
         // para despues colocarlos en el array allEnemies.
-        for(var j = 0, x = Math.floor((Math.random() * 2)) + 1; j < x; j++){
+        for(var j = 0, x = Math.floor((Math.random() * 6)) + 1; j < x; j++){
 
-            var enemy,
-                speed = this.difficulty * Math.floor(( Math.random() * (200 - 100) + 100));
+            var speed    = this.difficulty * Math.floor(( Math.random() * (300 - 100) + 100));
 
-            enemy = new Enemy(speed, i);
+            enemy = new Enemy(speed, i, distance - 500);
             this.allEnemies.push(enemy);
+
+            distance = enemy.x || 0;
         }
+
+        distance = 0;
     }
 
 
@@ -83,10 +94,10 @@ Game.prototype.reset = function(){
 * @param {number} speed - The speed of the enemy.
 * @param {number} row - The row where is located.
 */
-var Enemy = function(speed, row) {
+var Enemy = function(speed, row, x) {
 
     this.speed = speed;
-    this.x = -200;
+    this.x = x || 0;
     this.y =  60  + row * 83;
     this.sprite = 'images/enemy-bug.png';
 
@@ -109,13 +120,13 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.move = function(dt) {
 
     // Move the enemy.
-    if (this.x <= 504) {
+    if (this.x < 1200) {
         this.x += dt * this.speed;
     }
 
     // If the enemy came at the end of the row,
     // move to the other side with random position.
-    if (this.x > 504) {
+    if (this.x > 1200) {
         this.x = -200 - Math.floor((Math.random() * 250));
     }
 }
