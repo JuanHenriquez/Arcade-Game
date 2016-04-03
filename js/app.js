@@ -244,9 +244,13 @@ game = new Game();
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
+        65: 'left',
         38: 'up',
+        87: 'up',
         39: 'right',
-        40: 'down'
+        68: 'right',
+        40: 'down',
+        83: 'down'
     };
 
     game.player.handleInput(allowedKeys[e.keyCode]);
