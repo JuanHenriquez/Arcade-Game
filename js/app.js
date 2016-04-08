@@ -250,7 +250,9 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         68: 'right',
         40: 'down',
-        83: 'down'
+        83: 'down',
+        32: 'space',
+        17: 'ctrl'
     };
 
     game.player.handleInput(allowedKeys[e.keyCode]);
