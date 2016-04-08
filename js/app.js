@@ -120,7 +120,7 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.move = function(dt) {
 
     // Move the enemy.
-    if (this.x < 1200) {
+    if (this.x < 1200 && !game.isPause) {
         this.x += dt * this.speed;
     }
 
