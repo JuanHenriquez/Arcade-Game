@@ -13,8 +13,12 @@ var Game = function(){
 
 };
 
-Game.prototype.togglePause = function(){
-    this.isPause = !this.isPause;
+Game.prototype.togglePause = function(key){
+
+    if(key == 'space'){
+        this.isPause = !this.isPause;
+    }
+
 };
 
 Game.prototype.toggleMusic = function(){
@@ -256,4 +260,5 @@ document.addEventListener('keyup', function(e) {
     };
 
     game.player.handleInput(allowedKeys[e.keyCode]);
+    game.togglePause(allowedKeys[e.keyCode]);
 });
