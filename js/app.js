@@ -167,32 +167,34 @@ Player.prototype.render = function () {
 * @param {string} dt - The name of the key pressed.
 */
 Player.prototype.handleInput = function (key) {
-    switch (key) {
-        case 'up':
-            if (this.locationY > 60) {
-                this.locationY -= 83;
-            }else if(this.locationY <= 60){
-                this.reset();
-            }
-            break;
-        case 'down':
-            if (this.locationY < 460) {
-                this.locationY += 83;
-            }
-            break;
-        case 'left':
-            if (this.locationX > 0) {
-                this.locationX -= 101;
-            }
-            break;
-        case 'right':
-            if (this.locationX < 909) {
-                this.locationX  += 101;
-            }
-            break;
-        default:
-            this.locationY = this.locationY;
-            this.locationX = this.locationX;
+    if(!game.isPause) {
+        switch (key) {
+            case 'up':
+                if (this.locationY > 60) {
+                    this.locationY -= 83;
+                }else if(this.locationY <= 60){
+                    this.reset();
+                }
+                break;
+            case 'down':
+                if (this.locationY < 460) {
+                    this.locationY += 83;
+                }
+                break;
+            case 'left':
+                if (this.locationX > 0) {
+                    this.locationX -= 101;
+                }
+                break;
+            case 'right':
+                if (this.locationX < 909) {
+                    this.locationX  += 101;
+                }
+                break;
+            default:
+                this.locationY = this.locationY;
+                this.locationX = this.locationX;
+        }
     }
     console.log("Posicion en x: " + this.locationX);
     console.log("Posicion en y: " + this.locationY);
