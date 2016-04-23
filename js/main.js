@@ -28,7 +28,8 @@
             gameLifesElement       = $('#life-option'),
             gameTimeElement        = $('#time-option'),
             gameMusicElement       = $('#music-option'),
-            gameCharacterContainer = $('#characters-container');
+            gameCharacterContainer = $('#characters-container'),
+            btnNewGame             = $('#btn-new-game');
 
         gameDifficultyElement.change(function(){
             game.toggleDifficulty( parseInt(gameDifficultyElement.val()));
@@ -37,6 +38,8 @@
 
         gameLifesElement.change(function(){
             game.toggleLifeOption();
+            game.player.reset();
+            game.live.lives = 3;
         });
 
         gameTimeElement.change(function(){
@@ -56,6 +59,12 @@
 
             game.changeCharacter(char);
 
+        });
+
+        btnNewGame.click(function(){
+            game.player.reset();
+            game.score.points = 0;
+            game.live.lives = 3;
         });
 
     });
