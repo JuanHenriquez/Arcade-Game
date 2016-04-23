@@ -32,7 +32,7 @@ PAUSE | **SPACE**
 ### Game Features
 
 * 3 Difficulty Levels.
-* Toggle Music Opction.
+* Toggle Music Options.
 
 ### To Do:
 
