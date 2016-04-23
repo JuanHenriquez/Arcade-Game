@@ -1,10 +1,11 @@
 // Game Class - Handle Events, init, reset and update entities.
+/**
+* @constructor Control the game status and bind events
+*/
 var Game = function(){
 
     this.isPause     = false;
     this.audio       = new Audio('./music/arcade-music.wav');
-    this.withLife    = false;
-    this.withTime    = false;
     this.difficulty  = 1;
     this.character   = 'char-boy';
     this.player      = new Player();
@@ -14,6 +15,10 @@ var Game = function(){
 
 };
 
+/**
+* @description Toggle the game status.
+* @param {string} - key pressed.
+*/
 Game.prototype.togglePause = function(key){
 
     if(key == 'space'){
@@ -22,6 +27,9 @@ Game.prototype.togglePause = function(key){
 
 };
 
+/**
+* @description Control the Music Game.
+*/
 Game.prototype.toggleMusic = function(){
 
     if(this.audio.paused){
@@ -34,36 +42,38 @@ Game.prototype.toggleMusic = function(){
 
 };
 
-Game.prototype.toggleLifeOption = function(){
-    this.withLife = !this.withLife;
-};
-
-Game.prototype.toggleTimeOption = function(){
-    this.withTime = !this.withTime;
-};
-
+/**
+* @description Change the game difficulty when the input toggle is clicked.
+* @param {number} - number level.
+*/
 Game.prototype.toggleDifficulty = function( level ){
     this.difficulty = level;
 };
 
-// Cambia la imagen del jugador.
+
+/**
+* @description Change the player picture.
+* @param {string} - character name.
+*/
 Game.prototype.changeCharacter = function( character ){
     this.player.sprite = 'images/' + character + '.png';
 }
 
 
-// Carga los enemigos y los coloca dentro del array allEnemies.
+/**
+* @description Load enemies and placed into the allEnemies array.
+*/
 Game.prototype.loadEnemies = function(){
 
-    // Por buenas practicas, se creo la variable afuera del loop para que no se
-    // cree una y otra vez.
+    // For good practice, the variable was created outside the loop so it will not be created
+    // again and again.
     var enemy, distance = 0;
 
-    // Recorremos cada fila del mapa donde apareceran las garrapatas.
+    // Loop through each row of the map where ticks appear.
     for(var i = 0; i < 5; i++){
 
-        // Por medio de un numero aleatorio se vera cuantos enemigos habra por fila
-        // para despues colocarlos en el array allEnemies.
+        // Through a random number will be seen how many enemies there will be by
+        // row to place them in the array after
         for(var j = 0, x = Math.floor((Math.random() * 6)) + 1; j < x; j++){
 
             var speed    = this.difficulty * Math.floor(( Math.random() * (300 - 100) + 100));
@@ -80,14 +90,16 @@ Game.prototype.loadEnemies = function(){
 
 }
 
+/**
+* @description Create all enemies.
+*/
 Game.prototype.init = function(){
     this.loadEnemies();
 };
 
-Game.prototype.update = function(){
-
-};
-
+/**
+* @description Reset the enemy's array and create again.
+*/
 Game.prototype.reset = function(){
     this.allEnemies = [];
     this.init();
@@ -238,18 +250,27 @@ Score.prototype.sub = function( points ){
 * @constructor Live Class for control the lives of the player.
 */
 var Live = function(){
-    this.lives = 0;
+    this.lives = 3;
 };
 
 /**
 * @description subtract 1 live.
 */
 Live.prototype.dead = function(){
-    if(this.lives > 0){
-        this.lives -= this.lives;
+    if(this.lives >= 1){
+
+        if(this.lives == 1){
+            game.score.sub(game.score.points);
+        }
+        this.lives -= 1;
+    }
+
+    if(this.lives == 0){
+        this.lives = 3;
     }
 }
 
+// Intanciate the game object in the global scope.
 game = new Game();
 
 
