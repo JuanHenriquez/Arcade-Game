@@ -72,6 +72,17 @@ section {
     padding: 10px;
 }
 
+#player-information {
+    background: #212121;
+    color: #fff;
+    position: absolute;
+    width: 200px;
+    height: auto;
+    top: 20px;
+    left: 20px;
+    z-index: 10000;
+}
+
 .col-sp {
     padding: 0!important;
 }
