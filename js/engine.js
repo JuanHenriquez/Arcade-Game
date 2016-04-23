@@ -83,6 +83,7 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         checkCollisions();
+        updateCardData();
     }
 
     function checkCollisions(){
@@ -95,7 +96,7 @@ var Engine = (function(global) {
             if(player.locationY == enemy.y){
                 if(player.locationX < enemy.x + 50 && player.locationX + 50 > enemy.x){
                     player.reset();
-                    game.score.sub(game.score);
+                    game.live.dead();
                 }
             }
 
@@ -105,14 +106,14 @@ var Engine = (function(global) {
 
     function updateCardData(){
 
-        var pointData = document.getElementById('#points-data'),
-            livesData = document.getElementById('#lives-data');
+        var pointData = document.getElementById('points-data'),
+            livesData = document.getElementById('lives-data');
 
         // Replace points data.
-        pointData.innerHTML.replace('{{points}}', game.score.points);
+        pointData.innerHTML = "Points: " + game.score.points;
 
         // Replace lives data.
-        livesData.innerHTML.replace('{{lives}}', game.live.lives);
+        livesData.innerHTML = "Lives: " + game.live.lives;
     }
 
     /* This is called by the update function and loops through all of the
