@@ -95,6 +95,7 @@ var Engine = (function(global) {
             if(player.locationY == enemy.y){
                 if(player.locationX < enemy.x + 50 && player.locationX + 50 > enemy.x){
                     player.reset();
+                    game.score.sub(game.score);
                 }
             }
 
