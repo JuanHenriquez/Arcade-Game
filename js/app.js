@@ -10,6 +10,7 @@ var Game = function(){
     this.player      = new Player();
     this.allEnemies  = [];
     this.score       = new Score();
+    this.live        = new Live();
 
 };
 
@@ -207,30 +208,12 @@ Player.prototype.reset = function () {
     this.locationY = 475;
 };
 
-var Item = function(name, x, y){
-
-    this.x      = x;
-    this.y      = y;
-    this.sprite = 'images/' + name + '.png';
-
-};
-
-Item.prototype.collect = function(){
-
-};
-
-Item.prototype.drop = function(){
-
-};
-
-Item.prototype.render = function(){
-
-};
-
+/**
+* @constructor Score Class for control player scores.
+*/
 var Score = function(){
     this.points = 0;
 };
-
 
 /**
 * @description sum function is use to accumulate points.
@@ -249,6 +232,23 @@ Score.prototype.sub = function( points ){
         this.points -= points;
     }
 };
+
+
+/**
+* @constructor Live Class for control the lives of the player.
+*/
+var Live = function(){
+    this.lives = 0;
+};
+
+/**
+* @description subtract 1 live.
+*/
+Live.prototype.dead = function(){
+    if(this.lives > 0){
+        this.lives -= this.lives;
+    }
+}
 
 game = new Game();
 
