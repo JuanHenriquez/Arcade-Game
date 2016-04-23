@@ -103,6 +103,18 @@ var Engine = (function(global) {
 
     }
 
+    function updateCardData(){
+
+        var pointData = document.getElementById('#points-data'),
+            livesData = document.getElementById('#lives-data');
+
+        // Replace points data.
+        pointData.innerHTML.replace('{{points}}', game.score.points);
+
+        // Replace lives data.
+        livesData.innerHTML.replace('{{lives}}', game.live.lives);
+    }
+
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
