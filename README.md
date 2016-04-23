@@ -44,4 +44,4 @@ PAUSE | **SPACE**
 
 
 ## License
-Arcade Game Project used a MIT License available [here](./License.txt)
+Arcade Game Project used a MIT License available [here](./LICENSE.txt)
