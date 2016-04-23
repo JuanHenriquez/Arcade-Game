@@ -174,6 +174,7 @@ Player.prototype.handleInput = function (key) {
                     this.locationY -= 83;
                 }else if(this.locationY <= 60){
                     this.reset();
+                    game.score.sum(20);
                 }
                 break;
             case 'down':
@@ -196,8 +197,6 @@ Player.prototype.handleInput = function (key) {
                 this.locationX = this.locationX;
         }
     }
-    console.log("Posicion en x: " + this.locationX);
-    console.log("Posicion en y: " + this.locationY);
 };
 
 /**
@@ -232,10 +231,19 @@ var Score = function(){
     this.points = 0;
 };
 
+
+/**
+* @description sum function is use to accumulate points.
+* @param {number} points to add.
+*/
 Score.prototype.sum = function( points ){
     this.points += points;
 };
 
+/**
+* @description sub function is use to subtract points.
+* @param {number} points to subtract.
+*/
 Score.prototype.sub = function( points ){
     if(this.points > 0){
         this.points -= points;
