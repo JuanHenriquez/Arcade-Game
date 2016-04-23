@@ -12,8 +12,9 @@
     <section id="section" class="full-height">
         <div class="card" id="player-information">
             <div class="card-content">
-                <h5>Points: {{poitnts}}</h5>
-                <h5>Lives: {{lives}}</h5>
+                <h6 id="points-data">Points: {{points}}</h6>
+                <h6 id="lives-data">Lives: {{lives}}</h6>
+                <a class="btn waves-effect wave-light" id="btn-new-game">New Game</a>
             </div>
         </div>
         <div id="canvas-container">
@@ -32,7 +33,7 @@
                         <li>
                             <div class="collapsible-header"><i class="material-icons">info</i>Instructions</div>
                             <div class="collapsible-body">
-                                <p>Lorem ipsum dolor sit amet.</p>
+                                <p>This game is to cross to the other side of the road without ticks and you collide.</p>
                             </div>
                         </li>
                         <li>
@@ -49,10 +50,6 @@
                                             <label for="">Choose your difficulty</label>
                                         </div>
                                         <div class="col s6">
-                                            <p>
-                                                <input type="checkbox" class="filled-in" id="life-option" />
-                                                <label for="life-option">Play with Lifes</label>
-                                            </p>
                                             <div class="switch">
                                                 Turn on the music
                                                 <label>
@@ -69,7 +66,8 @@
                         <li>
                             <div class="collapsible-header"><i class="material-icons">games</i>Controls</div>
                             <div class="collapsible-body">
-
+                                <p>Press W, A, S, D or the arrows keys to move</p>
+                                <p>Press SPACE to pause the game.</p>
                             </div> <!-- /.collapsible-body -->
                         </li>
                     </ul>
